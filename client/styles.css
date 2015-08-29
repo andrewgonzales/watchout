@@ -2,26 +2,32 @@
 
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
+
 svg {
-  border: 3px solid red;
+  border: 1px solid red;
+  background-image: url("images/rainbow_road_track.png");
+  background-size: contain;
 }
 @-webkit-keyframes spinnerRotate {
   from {-webkit-transform: rotate(0deg);}
   to {-webkit-transform: rotate(360deg);}
 }
-image {
+image.enemy{
   position:fixed;
   -webkit-transform-origin:center center;
   -webkit-animation-name:spinnerRotate;
-  -webkit-animation-duration: .5s;
+  -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
 }
-.enemy {
-  href: "asteroid.png";
-  background: green;
-  width:200px;
-  height:200px;
-  display: block;
-  border: 3px solid red;
+.scoreboard{
+  font-family: SuperMario;
+  text-align: center;
 }
+body {
+  text-align:center;
+}
+@font-face { 
+  font-family: SuperMario; 
+  src: url('SuperMario256.ttf')
+};
