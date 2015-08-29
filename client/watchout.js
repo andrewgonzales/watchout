@@ -4,6 +4,8 @@ var width = 500; // enemy width, height
 var height = 500;
 var enemyRadius = 25;
 var heroRadius = 20;
+var currentScore = 0;
+var highScore = 0;
 var collisionCount = 0;
 var enemyCount = 20;
 var collisionFlag = false;
@@ -85,14 +87,33 @@ setInterval(function(){
       currentDistance = distance(x, y);
       if (currentDistance < enemyRadius + heroRadius - 10) {
         hero.attr("fill", "green");
-        if (!collisionFlag) {
+        if (!collisionFlag) { //first collision in the 1.5 second interval
           collisionCount++;
           d3.select(".collisionCount").text(collisionCount);
+
         }
+        currentScore = 0;
+        d3.select(".currentScore").text(currentScore);
         collisionFlag = true;
 
       }
     });
+}, 10);
+
+setInterval(function(){
+  
+  // if(collisionFlag){
+  //   currentScore = 0;
+  // } else {
+  currentScore++;
+  if(currentScore > highScore){
+    highScore = currentScore;
+    d3.select(".highScore").text(highScore);
+
+    // }
+  }
+  d3.select(".currentScore").text(currentScore);
+
 }, 10);
 
 var distance = function(enemyX, enemyY){
