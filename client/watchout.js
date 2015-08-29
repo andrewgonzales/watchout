@@ -21,7 +21,7 @@ var gameBoard = d3.select("body").append("svg")
     .attr("cx", width/2)
     .attr("cy", height/2)
     .attr("r", heroRadius)
-    .attr("fill", "orange")
+    .attr("fill", "green")
     // .call(drag);
 
 var hero = gameBoard.select("circle");
@@ -54,7 +54,8 @@ createEnemies(enemyCount);
 function randomLocation() {
   var x = Math.floor(Math.random() * (width - 50));
   var y = Math.floor(Math.random() * (height - 50));
-  return [x, y];
+  var speed = Math.floor(Math.random() * 4);
+  return [x, y, speed];
 }
 
 setInterval(function() {
@@ -79,14 +80,14 @@ setInterval(function(){
   //check each asteroid position for collision
   var currentDistance;
   var nodes = d3.selectAll("image");
-  hero.attr("fill", "orange");
+  hero.attr("fill", "green");
   d3.selectAll("image")
     .each(function(d, i) {
       var x = d3.select(this).attr("x");
       var y = d3.select(this).attr("y");
       currentDistance = distance(x, y);
       if (currentDistance < enemyRadius + heroRadius - 10) {
-        hero.attr("fill", "green");
+        hero.attr("fill", "red");
         if (!collisionFlag) { //first collision in the 1.5 second interval
           collisionCount++;
           d3.select(".collisionCount").text(collisionCount);
