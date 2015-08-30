@@ -20,7 +20,8 @@ var marioCharacters = [
   [ "bowser_still.png", "bowser_spinning.gif"],
   [ "yoshi_still.png", "yoshi_spinning.gif"]
 ];
-var marioEnemy = "red_shell.gif";
+var marioEnemy = "rainbow_shell.gif";
+var redShell = "red_shell.gif";
 
 var heroCharacters = [
 ["hero_animated.gif", "hero_hit.gif"]
@@ -88,6 +89,15 @@ var createEnemies = function(n) {
     .attr("height", enemyRadius)
     .attr("x", function(d){ return d[0];})
     .attr("y", function(d) {return d[1];});
+
+  gameBoard.append("image")
+    .attr("class","redShell")
+    .attr("x", function(d){ return randomLocation()[0]; })
+    .attr("y", function(d){ return randomLocation()[1]; })
+    .attr("xlink:href","images/" + redShell)
+    .attr("width", enemyRadius)
+    .attr("height", enemyRadius);
+
 };
 createEnemies(enemyCount);
 
@@ -121,9 +131,8 @@ setInterval(function() {
 setInterval(function(){
   //check each asteroid position for collision
   var currentDistance;
-  var nodes = d3.selectAll(".enemy");
   hero.attr("fill", "green");
-  d3.selectAll(".enemy")
+  d3.selectAll(".enemy, .redShell")
     .each(function(d, i) {
       var x = d3.select(this).attr("x");
       var y = d3.select(this).attr("y");
@@ -153,6 +162,29 @@ setInterval(function(){
   d3.select(".currentScore").text(currentScore);
 
 }, 10);
+
+setInterval(function() {
+  //red shells
+  d3.selectAll(".redShell")
+    .each(function(d, i){
+      var x = parseInt(d3.select(this).attr("x"), 10);
+      var y = parseInt(d3.select(this).attr("y"), 10);
+
+      if (x < parseInt(hero.attr("x"), 10)) {
+        d3.select(this).attr("x", parseInt(x, 10)+1);
+      }  
+      else if (x > parseInt(hero.attr("x"), 10)) {
+        d3.select(this).attr("x", parseInt(x, 10)-1);
+      } 
+
+      if (y < parseInt(hero.attr("y"), 10)) {
+        d3.select(this).attr("y", parseInt(y, 10)+1);
+      }  
+      else if (y > parseInt(hero.attr("y"), 10)) {
+        d3.select(this).attr("y", parseInt(y, 10)-1);
+      } 
+    })
+}, 25);
 
 var distance = function(enemyX, enemyY){
   var heroX = hero.attr("x");

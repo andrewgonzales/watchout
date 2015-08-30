@@ -18,7 +18,7 @@ image.enemy{
   -webkit-animation-name:spinnerRotate;
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
+  -webkit-animation-timing-function: square;
 }
 .scoreboard{
   font-family: SuperMario;
